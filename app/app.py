@@ -65,7 +65,3 @@ def user(user):
 @crossdomain(origin='*')
 def project(id):
     return json.loads(requests.get(f'https://api.scratch.mit.edu/projects/{id}').text)
-
-# run it
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)
