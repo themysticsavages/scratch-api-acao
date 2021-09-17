@@ -7,6 +7,7 @@ import json
 
 #         The Scratch API
 #        but CORS-friendly
+#    and a bit incomplete lol
 
 app = Flask(__name__)
 
@@ -56,12 +57,17 @@ def crossdomain(origin=None, methods=None, headers=None, max_age=21600, attach_t
 def home():
     return { 'status': 'ok', 'more_at': 'https://scratchhh.tk' }
 
-@app.route('/users/<user>')
+@app.route('/users/<user>/')
 @crossdomain(origin='*')
 def user(user):
     return json.loads(requests.get(f'https://api.scratch.mit.edu/users/{user}').text)
 
-@app.route('/projects/<id>')
+@app.route('/projects/<id>/')
 @crossdomain(origin='*')
 def project(id):
     return json.loads(requests.get(f'https://api.scratch.mit.edu/projects/{id}').text)
+
+@app.route('/featured/')
+@crossdomain(origin='*')
+def featured():
+    return json.loads(requests.get('https://api.scratch.mit.edu/proxy/featured').text)
