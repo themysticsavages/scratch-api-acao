@@ -36,6 +36,6 @@ def featured():
 
 @app.route('/checkuser/<user>/')
 def checkuser(user):
-    res = jsonify({'status':json.loads(requests.get('https://api.scratch.mit.edu/users'+user).text)!={"code":"NotFound","message":""}})
+    res = jsonify({'status':json.loads(requests.get('https://api.scratch.mit.edu/users'+user).text)=={"code":"NotFound","message":""}})
     res.headers.add('Access-Control-Allow-Origin', '*')
     return res
