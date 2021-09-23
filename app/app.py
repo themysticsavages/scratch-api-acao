@@ -18,15 +18,15 @@ def home():
 
 @app.route('/users/<user>/')
 def user(user):
-    res = jsonify(json.loads(requests.get('https://api.scratch.mit.edu/users/'+user).text)).headers.add('Access-Control-Allow-Origin', '*')
+    res = jsonify(json.loads(requests.get('https://api.scratch.mit.edu/users/'+user).text))
     return res
 
 @app.route('/projects/<id>/')
 def project(id):
-    res = jsonify(json.loads(requests.get('https://api.scratch.mit.edu/projects/'+id).text)).headers.add('Access-Control-Allow-Origin', '*')
+    res = jsonify(json.loads(requests.get('https://api.scratch.mit.edu/projects/'+id).text))
     return res
 
 @app.route('/featured/')
 def featured():
-    res = jsonify(json.loads(requests.get('https://api.scratch.mit.edu/proxy/featured').text)).headers.add('Access-Control-Allow-Origin', '*')
+    res = jsonify(json.loads(requests.get('https://api.scratch.mit.edu/proxy/featured').text))
     return res
