@@ -2,6 +2,7 @@ from datetime import timedelta
 from flask import Flask, make_response, request, current_app, jsonify
 from functools import update_wrapper
 
+import scratchclient
 import requests
 import json
 
@@ -34,8 +35,20 @@ def featured():
     res.headers.add('Access-Control-Allow-Origin', '*')
     return res
 
-@app.route('/checkuser/<user>/')
+@app.route('/correctcredits/')
 def checkuser(user):
-    res = jsonify({'status':json.loads(requests.get('https://api.scratch.mit.edu/users'+user).text)=={"code":"NotFound","message":""}})
+    res = {'status':'pending'}
+    args = request.args
+    false = False
+    true = True
+   
+    try:
+        scratchclient.ScratchSession(args.get('u'), args.get('p'))
+        res['status'] = true
+    except scratchclient.ScratchExceptions.InvalidCredentialsException:
+        res['status'] = false
+        
+    res = jsonify(res)
     res.headers.add('Access-Control-Allow-Origin', '*')
     return res
+    
