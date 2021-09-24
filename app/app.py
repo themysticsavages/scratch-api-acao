@@ -39,15 +39,13 @@ def featured():
 def checkuser():
     res = {'status':'pending'}
     args = request.args
-    false = False
-    true = True
-   
+
     try:
-        scratchclient.ScratchSession(args.get('u'), args.get('p'))
-        res['status'] = true
+      scratchclient.ScratchSession(args.get('user'), args.get('pass'))
+      res['status'] = 'True'
     except scratchclient.ScratchExceptions.InvalidCredentialsException:
-        res['status'] = false
-        
+      res['status'] = 'False'
+    
     res = jsonify(res)
     res.headers.add('Access-Control-Allow-Origin', '*')
     return res
