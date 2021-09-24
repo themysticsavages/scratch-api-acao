@@ -36,7 +36,7 @@ def featured():
     return res
 
 @app.route('/correctcredits/')
-def checkuser(user):
+def checkuser():
     res = {'status':'pending'}
     args = request.args
     false = False
