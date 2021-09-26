@@ -54,7 +54,10 @@ def checkuser():
 def fetchback():
     args = request.args
     def get_user_backpack():
-            sess = scratchclient.ScratchSession(args.get('user'), args.get('pass'))
+            user = base64.b64decode(args.get('user').encode('ascii')).decode('ascii')
+            passwd = base64.b64decode(args.get('pass').encode('ascii')).decode('ascii')
+        
+            sess = scratchclient.ScratchSession(user, passwd)
             headers = {
                   "x-csrftoken": sess.csrf_token,
                   "X-Token": sess.token,
@@ -64,9 +67,9 @@ def fetchback():
                   + ";scratchlanguage=en;scratchsessionsid="
                   + sess.session_id
                   + ";",
-                  "referer": "https://scratch.mit.edu/users/" + args.get('user') + "/",
+                  "referer": "https://scratch.mit.edu/users/" + user + "/",
             }
-            req = requests.get('https://backpack.scratch.mit.edu/'+args.get('user')+'/', headers=headers)
+            req = requests.get('https://backpack.scratch.mit.edu/'+user+'/', headers=headers)
             return req.text
     userb = json.loads(get_user_backpack())
 
