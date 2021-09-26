@@ -4,6 +4,7 @@ from functools import update_wrapper
 
 import scratchclient
 import requests
+import base64
 import json
 
 #         The Scratch API
