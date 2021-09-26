@@ -71,7 +71,7 @@ def fetchback():
     userb = json.loads(get_user_backpack())
 
     content = []
-      for cnt in userb:
+    for cnt in userb:
             content.append(cnt['body'])
     res = jsonify(eval(str(content)))
     res.headers.add('Access-Control-Allow-Origin', '*')
