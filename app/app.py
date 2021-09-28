@@ -30,6 +30,14 @@ def project(id):
     res.headers.add('Access-Control-Allow-Origin', '*')
     return res
 
+@app.route('/search/')
+    args = request.args
+    if not args.get('q'): abort(404)
+    
+    res = jsonify(json.loads(requests.get('https://api.scratch.mit.edu/search/projects?q='+args.get('q')+'/').text))
+    res.headers.add('Access-Control-Allow-Origin', '*')
+    return res
+
 @app.route('/featured/')
 def featured():
     res = jsonify(json.loads(requests.get('https://api.scratch.mit.edu/proxy/featured').text))
