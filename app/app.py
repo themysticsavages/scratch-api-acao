@@ -31,6 +31,7 @@ def project(id):
     return res
 
 @app.route('/search/')
+def search():
     args = request.args
     if not args.get('q'): abort(404)
     
